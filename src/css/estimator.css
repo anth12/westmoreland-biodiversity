@@ -1,0 +1,708 @@
+/* ── Estimator-specific token extension ──────── */
+:root {
+  --topbar-h: 56px;
+}
+
+html, body { height: 100%; overflow: hidden; }
+
+body { display: flex; flex-direction: column; }
+
+/* ── Top bar ─────────────────────────────────– */
+.topbar {
+  height: var(--topbar-h);
+  background: var(--green-deep);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  flex-shrink: 0;
+  z-index: 500;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+.topbar-logo {
+  font-family: var(--ff-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--cream);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.topbar-logo span { color: var(--gold-light); }
+.topbar-title {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.55);
+}
+.topbar-back {
+  font-size: 0.82rem;
+  color: rgba(245,240,232,0.65);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s;
+}
+.topbar-back:hover { color: var(--cream); }
+
+/* ── Main layout ─────────────────────────────– */
+.app-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Form Panel ──────────────────────────────– */
+.form-panel {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 400;
+  flex: 1;
+}
+
+.estimator-form {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.intro-section {
+  background: var(--green-pale);
+  border-radius: var(--radius-lg);
+  padding: 1.3rem;
+  border-left: 4px solid var(--green-deep);
+  gap: 0.6rem;
+}
+
+.form-title {
+  font-family: var(--ff-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.intro-message {
+  font-size: 0.9rem;
+  color: var(--text-body);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.intro-message strong {
+  color: var(--green-deep);
+  font-weight: 600;
+}
+
+.section-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0;
+  padding-bottom: 0.3rem;
+  border-bottom: 1.5px solid var(--border);
+}
+
+.section-description {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ── Form Groups ────────────────────────────– */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.required {
+  color: #d9534f;
+  font-weight: 600;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"] {
+  padding: 0.65rem 0.85rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--ff-body);
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  background: var(--white);
+  transition: all 0.2s;
+  outline: none;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="tel"]:focus {
+  border-color: var(--green-light);
+  box-shadow: 0 0 0 3px rgba(45, 138, 78, 0.08);
+}
+
+.form-group input::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+}
+
+/* ── Checkbox ────────────────────────────────– */
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  flex-direction: row;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 0.15rem;
+  cursor: pointer;
+  accent-color: var(--green-deep);
+  flex-shrink: 0;
+}
+
+.checkbox-group label {
+  font-size: 0.82rem;
+  color: var(--text-body);
+  margin: 0;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+/* ── Disclaimer Box ─────────────────────────– */
+.disclaimer-box {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+.disclaimer-text {
+  font-size: 0.8rem;
+  color: #856404;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.disclaimer-text strong {
+  color: #664d03;
+  font-weight: 600;
+}
+
+/* ── Map Section ────────────────────────────– */
+.map-section {
+  border-top: 1.5px solid var(--border);
+  padding-top: 0.9rem;
+  margin-top: 0.4rem;
+}
+
+.inline-map {
+  width: 100%;
+  height: 450px;
+  min-height: 450px;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  margin-top: 0.6rem;
+  overflow: hidden;
+  position: relative;
+  display: block;
+  background: #e5e3df;
+}
+
+.inline-map .leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.inline-map .leaflet-pane {
+  z-index: inherit;
+}
+
+.land-areas-container {
+  margin-top: 0.9rem;
+}
+
+.land-areas-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin: 0 0 0.6rem 0;
+}
+
+/* ── Regions list ────────────────────────────– */
+.regions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.region-empty {
+  text-align: center;
+  padding: 1rem 0.8rem;
+  background: var(--cream);
+  border-radius: var(--radius);
+  border: 1px dashed var(--border);
+}
+
+.region-empty p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.region-empty p:first-child {
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.region-card {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.7rem 0.8rem;
+  transition: all 0.2s;
+}
+
+.region-card:hover {
+  border-color: var(--green-light);
+  background: var(--green-pale);
+}
+
+.region-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.35rem;
+}
+
+.region-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.region-name-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--ff-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  outline: none;
+  min-width: 0;
+}
+
+.region-name-input:focus {
+  border-bottom: 1px solid var(--green-light);
+  padding-bottom: 0.1rem;
+}
+
+.region-delete-btn {
+  width: 18px;
+  height: 18px;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  line-height: 1;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.region-delete-btn:hover {
+  background: #fde8e8;
+  color: #c0392b;
+}
+
+.region-edit-btn {
+  width: 18px;
+  height: 18px;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  line-height: 1;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.region-edit-btn:hover {
+  background: #e8f4f0;
+  color: var(--green-deep);
+}
+
+.region-meta {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.region-zoom-btn {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.region-zoom-btn:hover {
+  border-color: var(--green-light);
+  color: var(--green-deep);
+  background: var(--green-pale);
+}
+
+/* ── Form Actions ────────────────────────────– */
+.form-actions {
+  margin-top: auto;
+  padding-top: 1.2rem;
+  border-top: 1.5px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* ── Buttons ─────────────────────────────────– */
+.btn {
+  padding: 0.85rem 1.2rem;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-family: var(--ff-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  outline: none;
+  width: 100%;
+}
+
+.btn-primary {
+  background: var(--green-deep);
+  color: var(--white);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #1f6b3a;
+  box-shadow: 0 4px 12px rgba(45, 138, 78, 0.25);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(45, 138, 78, 0.2);
+}
+
+.btn-primary:disabled {
+  background: var(--text-muted);
+  color: rgba(255, 255, 255, 0.6);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-draw {
+  background: var(--green-deep);
+  color: var(--white);
+  width: 100%;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.btn-draw:hover:not(:disabled) {
+  background: #1f6b3a;
+  box-shadow: 0 4px 12px rgba(45, 138, 78, 0.25);
+  transform: translateY(-1px);
+}
+
+.btn-draw:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(45, 138, 78, 0.2);
+}
+
+.btn-draw:disabled {
+  background: var(--text-muted);
+  color: rgba(255, 255, 255, 0.6);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.submit-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+
+/* Leaflet Draw controls positioning */
+.leaflet-draw-toolbar {
+  box-shadow: none !important;
+}
+
+.leaflet-draw-actions {
+  display: none;
+}
+
+/* ── Modal ───────────────────────────────────– */
+.modal-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-backdrop.open {
+  display: flex;
+}
+
+.modal {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  max-width: 450px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.modal-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.modal h2 {
+  margin: 0 0 0.8rem 0;
+  font-size: 1.3rem;
+  color: var(--text-dark);
+}
+
+.modal p {
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  color: var(--text-body);
+  line-height: 1.5;
+}
+
+.modal-progress,
+.modal-success {
+  display: none;
+}
+
+.modal-progress.show,
+.modal-success.show {
+  display: block;
+}
+
+#progressFill {
+  height: 4px;
+  background: var(--green-deep);
+  transition: width 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.progress-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--text-body);
+  margin-bottom: 0.6rem;
+}
+
+.progress-item-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.progress-item.processing .progress-item-dot {
+  background: var(--green-light);
+  animation: pulse 1s infinite;
+}
+
+.progress-item.done .progress-item-dot {
+  background: var(--green-deep);
+}
+
+.progress-item.error .progress-item-dot {
+  background: #e74c3c;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.modal-close {
+  float: right;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+#successFiles {
+  text-align: left;
+  background: var(--cream);
+  border-radius: var(--radius);
+  padding: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-body);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+#successFiles strong {
+  color: var(--green-deep);
+}
+
+#successFiles div {
+  margin-bottom: 0.4rem;
+}
+
+#successFiles div:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Map draw toolbar customisation ─────────── */
+.leaflet-draw-toolbar a {
+  border-radius: var(--radius) !important;
+}
+
+/* Prominent polygon (Draw land boundary) button */
+.leaflet-draw-toolbar .leaflet-draw-draw-polygon {
+  width: auto !important;
+  padding-right: 12px !important;
+  background-color: var(--green-deep) !important;
+  border-color: var(--green-mid) !important;
+  height: 34px !important;
+  line-height: 34px !important;
+  background-position: 6px center !important;
+  background-size: 20px 20px !important;
+  padding-left: 32px !important;
+}
+.leaflet-draw-toolbar .leaflet-draw-draw-polygon::after {
+  content: 'Draw land boundary';
+  font-family: var(--ff-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--cream);
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.leaflet-draw-toolbar .leaflet-draw-draw-polygon:hover {
+  background-color: var(--green-mid) !important;
+}
+
+/* ── Responsive ──────────────────────────────– */
+@media (max-width: 1024px) {
+  .form-panel {
+    width: 340px;
+  }
+
+  .inline-map {
+    height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-body {
+    flex-direction: column;
+  }
+
+  .form-panel {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    max-height: 50%;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .inline-map {
+    height: 350px;
+  }
+}
+
+/* ── Leaflet polygon colours ─────────────────── */
+.leaflet-interactive { cursor: crosshair; }
+
+/* ── Hide Leaflet-Draw toolbar ──────────────── */
+.leaflet-draw-toolbar {
+  display: none !important;
+}

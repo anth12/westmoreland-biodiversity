@@ -1,0 +1,159 @@
+---
+layout: layouts/base.njk
+title: "Land Estimator — Acres & Assets"
+permalink: /land-estimator.html
+pageCss: /css/estimator.css
+externalCss:
+  - "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  - "https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css"
+externalJs:
+  - "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  - "https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"
+  - "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
+pageJs: /js/estimator.js
+---
+
+  <!-- ── Top bar ──────────────────────────────── -->
+  <header class="topbar">
+    <a class="topbar-logo" href="/">Acres <span>&</span> Assets</a>
+    <span class="topbar-title">Land Estimator</span>
+    <a class="topbar-back" href="/">← Back to site</a>
+  </header>
+
+  <!-- ── App body ─────────────────────────────── -->
+  <div class="app-body">
+
+    <!-- Form Panel -->
+    <div class="form-panel">
+      <form id="estimatorForm" class="estimator-form">
+        
+        <!-- Intro Section -->
+        <section class="form-section intro-section">
+          <h2 class="form-title">Get Your Instant Land Estimate</h2>
+          <p class="intro-message">
+            Receive a live estimate on this page <strong>instantly</strong>. No obligation, no emails clogging your inbox—your estimate appears right here.
+          </p>
+        </section>
+
+        <!-- Personal Details Section -->
+        <section class="form-section">
+          <h3 class="section-title">Your Details</h3>
+          
+          <div class="form-group">
+            <label for="fullname">Full Name <span class="required">*</span></label>
+            <input type="text" id="fullname" name="fullname" placeholder="e.g., John Smith" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email <span class="required">*</span></label>
+            <input type="email" id="email" name="email" placeholder="e.g., john@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone <span class="required">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="e.g., +44 123 456 7890" required>
+          </div>
+        </section>
+
+        <!-- Address Section -->
+        <section class="form-section">
+          <h3 class="section-title">Land Address</h3>
+          
+          <div class="form-group">
+            <label for="address">Street Address <span class="required">*</span></label>
+            <input type="text" id="address" name="address" placeholder="e.g., 123 Main Street" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="postcode">Postcode <span class="required">*</span></label>
+              <input type="text" id="postcode" name="postcode" placeholder="e.g., SW1A 1AA" required>
+            </div>
+
+            <div class="form-group">
+              <label for="county">County <span class="required">*</span></label>
+              <input type="text" id="county" name="county" placeholder="e.g., Greater London" required>
+            </div>
+          </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="form-section map-section">
+          <h3 class="section-title">Draw Your Land Boundary</h3>
+          <p class="section-description">Click the button below to start drawing, then click each corner of your land. Double-click to finish the shape. You can draw up to 5 separate areas, with a total limit of 1000 acres. For larger properties, please contact us.</p>
+          
+          <div id="map" class="inline-map"></div>
+
+          <button type="button" class="btn btn-draw" id="drawLandBtn">✏️ Draw land boundary</button>
+
+          <!-- Land areas list -->
+          <div class="land-areas-container">
+            <p class="land-areas-label">Land areas: <strong id="regionCountLabel">0</strong></p>
+            <div class="regions-list" id="regionsList">
+              <div class="region-empty" id="regionEmpty">
+                <p>📍</p>
+                <p>No land areas drawn yet. Use the draw tool above.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Terms & Disclaimer Section -->
+        <section class="form-section disclaimer-section">
+          <h3 class="section-title">Important Terms</h3>
+          
+          <div class="disclaimer-box">
+            <p class="disclaimer-text">
+              <strong>Disclaimer:</strong> This estimate is provided purely as an informal indicator of potential value and is in no way an official offer, estimate, or quotation. It is not a substitute for an official survey or professional valuation. The company accepts no liability for the estimate provided, and the actual value may be significantly higher or lower than suggested.
+            </p>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="acceptTerms" name="acceptTerms" required>
+            <label for="acceptTerms">
+              I understand and accept that this is an informal estimate only, with no liability accepted by the company
+            </label>
+          </div>
+        </section>
+
+        <!-- Submit Button -->
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submitBtn" disabled>
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 1v10M3 7.5l4.5 4.5 4.5-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Generate Estimate &amp; Download Maps
+          </button>
+          <p class="submit-note">Each land area is exported as terrain &amp; satellite map images.</p>
+        </div>
+
+      </form>
+    </div><!-- /form-panel -->
+
+  </div><!-- /app-body -->
+
+  <!-- ── Progress / Success Modal ──────────────── -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+
+      <!-- Progress state -->
+      <div class="modal-progress" id="modalProgress">
+        <span class="modal-icon">🗺️</span>
+        <h2>Generating images…</h2>
+        <p>Fetching terrain and satellite views for each land area. This may take a few seconds.</p>
+        <div id="progressFill" style="height: 4px; background: var(--green-deep); margin-bottom: 1rem; width: 0%;"></div>
+        <p class="progress-label" id="progressLabel">Starting…</p>
+        <div class="progress-items" id="progressItems"></div>
+      </div>
+
+      <!-- Success state -->
+      <div class="modal-success" id="modalSuccess">
+        <span class="modal-icon">✅</span>
+        <h2>Maps downloaded!</h2>
+        <p>Your land area images have been saved as a ZIP archive. They are ready for your records and analysis.</p>
+        <div id="successFiles" style="text-align: left; background: var(--cream); border-radius: var(--radius); padding: 1rem; font-size: 0.85rem; color: var(--text-body); line-height: 1.6; margin-bottom: 1rem;">
+          <strong style="color: var(--green-deep);">Files included</strong>
+        </div>
+        <button class="btn btn-primary" id="modalClose">Close &amp; Continue</button>
+      </div>
+
+    </div>
+  </div>

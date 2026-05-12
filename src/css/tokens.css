@@ -1,0 +1,25 @@
+/* ── Design tokens — shared across all pages ── */
+:root {
+  --green-deep:   #1a3526;
+  --green-mid:    #2d5a3d;
+  --green-light:  #4a8c62;
+  --green-pale:   #e8f0eb;
+  --cream:        #f5f0e8;
+  --cream-dark:   #ede6d6;
+  --gold:         #b8913a;
+  --gold-light:   #d4aa5a;
+  --text-dark:    #1a2018;
+  --text-body:    #3a4a3e;
+  --text-muted:   #6a7a6e;
+  --white:        #ffffff;
+  --border:       rgba(26,53,38,0.12);
+  --shadow-sm:    0 2px 12px rgba(26,53,38,0.08);
+  --shadow-md:    0 8px 32px rgba(26,53,38,0.12);
+  --shadow-lg:    0 20px 60px rgba(26,53,38,0.16);
+  --radius:       4px;
+  --radius-lg:    8px;
+  --ff-display:   'Playfair Display', Georgia, serif;
+  --ff-body:      'DM Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
