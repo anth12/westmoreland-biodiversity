@@ -1,59 +1,8 @@
-/* ── Estimator-specific token extension ──────── */
-:root {
-  --topbar-h: 56px;
-}
-
-html, body { height: 100%; overflow: hidden; }
-
-body { display: flex; flex-direction: column; }
-
-/* ── Top bar ─────────────────────────────────– */
-.topbar {
-  height: var(--topbar-h);
-  background: var(--green-deep);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1.5rem;
-  flex-shrink: 0;
-  z-index: 500;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
-}
-.topbar-logo {
-  font-family: var(--ff-display);
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--cream);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-.topbar-logo span { color: var(--gold-light); }
-.topbar-title {
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(245,240,232,0.55);
-}
-.topbar-back {
-  font-size: 0.82rem;
-  color: rgba(245,240,232,0.65);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  transition: color 0.2s;
-}
-.topbar-back:hover { color: var(--cream); }
+/* ── Estimator-specific styles ──────────────── */
 
 /* ── Main layout ─────────────────────────────– */
 .app-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  padding-top: 64px;
 }
 
 /* ── Form Panel ──────────────────────────────– */
@@ -62,16 +11,9 @@ body { display: flex; flex-direction: column; }
   max-width: 800px;
   margin: 0 auto;
   background: var(--white);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  z-index: 400;
-  flex: 1;
 }
 
 .estimator-form {
-  flex: 1;
-  overflow-y: auto;
   padding: 1.6rem;
   display: flex;
   flex-direction: column;
@@ -410,12 +352,12 @@ body { display: flex; flex-direction: column; }
 
 /* ── Form Actions ────────────────────────────– */
 .form-actions {
-  margin-top: auto;
   padding-top: 1.2rem;
   border-top: 1.5px solid var(--border);
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
+  padding-bottom: 1.6rem;
 }
 
 /* ── Buttons ─────────────────────────────────– */

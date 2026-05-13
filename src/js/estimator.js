@@ -31,8 +31,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       const map = L.map('map', {
-        center: [52.5, -1.0],
-        zoom: 7,
+        center: [54.5, -2.8],
+        zoom: 9,
         zoomControl: false,
         scrollWheelZoom: false,
         attributionControl: true,
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const results = await response.json();
           if (results && results.length > 0) {
             const { lat, lon } = results[0];
-            map.setView([parseFloat(lat), parseFloat(lon)], 12);
+            map.setView([parseFloat(lat), parseFloat(lon)], 14);
           }
         } catch (err) {
           console.log('Geocoding error:', err);
