@@ -1,24 +1,25 @@
+using System.Text.Json.Serialization;
 
 namespace Backend.Models;
 
 public record EstimateRequest(
-    Parcel[] Parcels,
-    EnquiryRequest Enquiry
+    [property: JsonPropertyName("parcels")] Parcel[] Parcels,
+    [property: JsonPropertyName("enquiry")] EnquiryRequest Enquiry
 );
 
 public record Parcel(
-    string Name,
-    string AreaM2,
-    string AreaHa,
-    string Notes,
-    Coordinate[] Coordinates,
-    string? SatelliteImageBase64,
-    string? TerrainImageBase64
+    [property: JsonPropertyName("name")] string Name,
+    [property: JsonPropertyName("area_m2")] decimal AreaM2,
+    [property: JsonPropertyName("area_ha")] decimal AreaHa,
+    [property: JsonPropertyName("notes")] string Notes,
+    [property: JsonPropertyName("coordinates")] Coordinate[] Coordinates,
+    [property: JsonPropertyName("satellite_image_base64")] string? SatelliteImageBase64,
+    [property: JsonPropertyName("agreement_length_years")] string? TerrainImageBase64
 );
 
 public record Coordinate(
-    string Lat,
-    string Lng
+    [property: JsonPropertyName("lat")] decimal Lat,
+    [property: JsonPropertyName("lng")] decimal Lng
 );
 
 public static class ParcelExtensions

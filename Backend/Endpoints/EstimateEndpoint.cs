@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.RegularExpressions;
 using Backend.Models;
 using Backend.Services;
@@ -32,6 +30,7 @@ public class EstimateEndpoint(ILogger<EstimateEndpoint> logger, ChatClient chatC
             return new BadRequestObjectResult(validationError);
 
         // Generate hash from request (excluding base64 images for consistent hashing)
+        var requestHash = estimateRequest.Parcels.ToConsistentHash();
         logger.LogInformation("Request hash: {Hash}", requestHash);
 
         // Check cache
@@ -208,14 +207,6 @@ User Notes: [e.g., Currently used for sheep grazing, contains a small stream]
             await Task.WhenAll(deleteTasks);
             logger.LogInformation("Deleted {Count} temporary blobs", uploadedBlobs.Count);
         }
-    }
-
-    private string GenerateConsistentHash(object obj)
-    {
-        var json = JsonSerializer.Serialize(obj, new JsonSerializerOptions { WriteIndented = false });
-        using var sha256 = SHA256.Create();
-        var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(json));
-        return Convert.ToBase64String(hash).Replace("/", "_").Replace("+", "-").TrimEnd('=');
     }
 
     private string? ValidateEstimateRequest(EstimateRequest request)

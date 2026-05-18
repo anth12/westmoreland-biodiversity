@@ -1,12 +1,14 @@
 
+using System.Text.Json.Serialization;
+
 namespace Backend.Models;
 
 public record EnquiryRequest(
-    string FullName,
-    string EmailAddress,
-    string PhoneNumber,
-    string StreetAddress,
-    string County,
-    string Postcode,
-    string? Message = null
+    [property: JsonPropertyName("fullname")] string FullName,
+    [property: JsonPropertyName("email")] string EmailAddress,
+    [property: JsonPropertyName("phone")] string PhoneNumber,
+    [property: JsonPropertyName("address")] string StreetAddress,
+    [property: JsonPropertyName("county")] string County,
+    [property: JsonPropertyName("postcode")] string Postcode,
+    [property: JsonPropertyName("message")] string? Message = null
 );
