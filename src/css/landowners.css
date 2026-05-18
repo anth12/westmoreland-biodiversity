@@ -1,0 +1,246 @@
+:root {
+  --hero-bg: linear-gradient(180deg, rgba(24, 55, 35, 0.95) 0%, rgba(39, 79, 45, 0.96) 100%);
+}
+
+.page-hero {
+  min-height: 78vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  color: var(--cream);
+  padding-top: 90px;
+}
+
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(255, 235, 179, 0.14), transparent 35%), radial-gradient(circle at bottom left, rgba(32, 168, 99, 0.24), transparent 25%);
+  pointer-events: none;
+}
+
+.page-hero .hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+}
+
+.page-hero h1 {
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  line-height: 1.05;
+}
+
+.page-hero .hero-lead {
+  max-width: 650px;
+  color: rgba(255, 255, 255, 0.88);
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.hero-notes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+  color: rgba(245, 240, 232, 0.8);
+  font-size: 0.95rem;
+}
+
+.hero-notes span {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+}
+
+.feature-grid,
+.proof-grid,
+.process-grid,
+.faq-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.feature-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.feature-card,
+.proof-card,
+.faq-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  min-height: 220px;
+}
+
+.feature-card h3,
+.proof-card h4,
+.faq-item h4 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--green-pale);
+  color: var(--green-deep);
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.content-split {
+  display: grid;
+  grid-template-columns: 1.2fr 0.85fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.value-panel {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.value-card {
+  background: var(--green-deep);
+  color: var(--cream);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+}
+
+.value-card h4 {
+  color: var(--gold-light);
+  margin-bottom: 1rem;
+}
+
+.value-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.value-card li {
+  margin-bottom: 0.8rem;
+  line-height: 1.6;
+}
+
+.check-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 2rem;
+}
+
+.check-list li {
+  position: relative;
+  padding-left: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.check-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--green-deep);
+  font-weight: 700;
+}
+
+.process-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.process-step {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: left;
+}
+
+.process-step span {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--green-pale);
+  color: var(--green-deep);
+  font-family: var(--ff-display);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.proof-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.faq-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.faq-item p {
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.cta-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2.5rem 2rem;
+  background: var(--green-deep);
+  border-radius: var(--radius-lg);
+  color: var(--cream);
+}
+
+.cta-panel h2 {
+  margin: 0;
+  max-width: 760px;
+}
+
+.cta-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.page-hero .btn-gold {
+  min-width: 220px;
+}
+
+.page-hero .btn-outline-light {
+  min-width: 220px;
+}
+
+@media (max-width: 860px) {
+  .content-split,
+  .cta-panel {
+    grid-template-columns: 1fr;
+  }
+  .cta-panel {
+    text-align: center;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-notes {
+    grid-template-columns: 1fr;
+  }
+  .feature-grid,
+  .proof-grid,
+  .process-grid,
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,7 +1,7 @@
 ---
 layout: layouts/base.njk
 title: "Land Estimator — Westmoreland Biodiversity"
-permalink: /land-estimator.html
+permalink: /land-estimator/
 pageCss: /css/estimator.css
 externalCss:
   - "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -112,10 +112,9 @@ pageJs: /js/estimator.js
         <!-- Submit Button -->
         <div class="form-actions">
           <button type="submit" class="btn btn-primary" id="submitBtn" disabled>
-            <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 1v10M3 7.5l4.5 4.5 4.5-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Generate Estimate &amp; Download Maps
+            Generate estimate
           </button>
-          <p class="submit-note">Each land area is exported as terrain &amp; satellite map images.</p>
+          <p class="submit-note">Each land area is included in the estimate request.</p>
         </div>
 
       </form>
@@ -130,22 +129,23 @@ pageJs: /js/estimator.js
       <!-- Progress state -->
       <div class="modal-progress" id="modalProgress">
         <span class="modal-icon">🗺️</span>
-        <h2>Generating images…</h2>
-        <p>Fetching terrain and satellite views for each land area. This may take a few seconds.</p>
+        <h2>Generating estimate…</h2>
+        <p>Fetching terrain and satellite views for each land area and submitting for estimate. This may take a few seconds.</p>
         <div id="progressFill" style="height: 4px; background: var(--green-deep); margin-bottom: 1rem; width: 0%;"></div>
         <p class="progress-label" id="progressLabel">Starting…</p>
         <div class="progress-items" id="progressItems"></div>
       </div>
 
-      <!-- Success state -->
+      <!-- Result state -->
       <div class="modal-success" id="modalSuccess">
-        <span class="modal-icon">✅</span>
-        <h2>Maps downloaded!</h2>
-        <p>Your land area images have been saved as a ZIP archive. They are ready for your records and analysis.</p>
-        <div id="successFiles" style="text-align: left; background: var(--cream); border-radius: var(--radius); padding: 1rem; font-size: 0.85rem; color: var(--text-body); line-height: 1.6; margin-bottom: 1rem;">
-          <strong style="color: var(--green-deep);">Files included</strong>
+        <span class="modal-icon">📈</span>
+        <h2 id="modalResultTitle">Estimate ready</h2>
+        <p id="modalResultMessage">Your estimate has been generated successfully. Review the details below.</p>
+        <div id="resultDetails" style="text-align: left; background: var(--cream); border-radius: var(--radius); padding: 1rem; font-size: 0.95rem; color: var(--text-body); line-height: 1.6; margin-bottom: 1rem;"></div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="modalClose">Close</button>
+          <!--<button class="btn btn-outline" id="modalRetry" style="display:none;">Retry</button>-->
         </div>
-        <button class="btn btn-primary" id="modalClose">Close &amp; Continue</button>
       </div>
 
     </div>

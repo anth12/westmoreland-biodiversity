@@ -8,5 +8,27 @@
             },
             "enableLiveMetricsFilters": true
         }
+    },
+    "functionTimeout": "00:05:00",
+    "cors": {
+        "allowedOrigins": [
+            "http://localhost:8080",
+            "https://localhost:8080"
+        ],
+        "supportedMethods": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "OPTIONS"
+        ],
+        "allowedHeaders": [
+            "*"
+        ],
+        "exposedHeaders": [
+            "*"
+        ],
+        "maxAge": 86400,
+        "supportsCredentials": false
     }
 }

@@ -27,6 +27,7 @@ public record ProjectSummary(
 public record EstimateResponse(
     [property: JsonPropertyName("project_summary")] ProjectSummary ProjectSummary,
     [property: JsonPropertyName("land_parcels")] IReadOnlyList<LandParcel> LandParcels,
-    [property: JsonPropertyName("commercial_terms")] CommercialTerms CommercialTerms
+    [property: JsonPropertyName("commercial_terms")] CommercialTerms CommercialTerms,
+    [property: JsonPropertyName("generated_at")] DateTime GeneratedAt
 );
 

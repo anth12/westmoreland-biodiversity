@@ -350,6 +350,56 @@
   background: var(--green-pale);
 }
 
+/* ── Region Images ─────────────────────────– */
+.region-images {
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border);
+}
+
+.region-image-row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.region-image-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  flex: 1;
+  min-width: 150px;
+}
+
+.region-image-placeholder {
+  width: 160px;
+  height: 120px;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: var(--text-muted);
+}
+
+.region-image {
+  width: 160px;
+  height: 120px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  object-fit: cover;
+  background: #f0ede8;
+}
+
+.region-image-item small {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
 /* ── Form Actions ────────────────────────────– */
 .form-actions {
   padding-top: 1.2rem;
@@ -555,27 +605,77 @@
   color: var(--text-muted);
 }
 
-#successFiles {
+#resultDetails {
   text-align: left;
   background: var(--cream);
   border-radius: var(--radius);
   padding: 1rem;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--text-body);
   line-height: 1.6;
   margin-bottom: 1rem;
 }
 
-#successFiles strong {
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.estimate-summary,
+.parcel-list,
+.summary-group {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.summary-row,
+.parcel-row {
+  display: grid;
+  grid-template-columns: 1.6fr 1.4fr;
+  gap: 1rem;
+  padding: 0.55rem 0.75rem;
+  background: #f6f4ed;
+  border-radius: var(--radius);
+}
+
+.summary-row span,
+.parcel-row span {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.summary-row strong,
+.parcel-row strong {
+  color: var(--text-dark);
+  font-size: 0.95rem;
+}
+
+.parcel-list h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
   color: var(--green-deep);
 }
 
-#successFiles div {
-  margin-bottom: 0.4rem;
+.parcel-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.85rem;
+  background: var(--white);
 }
 
-#successFiles div:last-child {
-  margin-bottom: 0;
+.parcel-card-header {
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.modal-error-message {
+  color: #a94442;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: var(--radius);
+  padding: 0.85rem;
 }
 
 /* ── Map draw toolbar customisation ─────────── */
