@@ -3,6 +3,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/js");
 
   return {
+    pathPrefix: "/westmoreland-biodiversity/",
     dir: {
       input: "src",
       output: "_site",

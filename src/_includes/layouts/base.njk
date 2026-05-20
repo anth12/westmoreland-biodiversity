@@ -9,15 +9,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="/css/tokens.css" />
-  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="{{ '/css/tokens.css' | url }}" />
+  <link rel="stylesheet" href="{{ '/css/global.css' | url }}" />
 
   {% for href in externalCss %}
   <link rel="stylesheet" href="{{ href }}" />
   {% endfor %}
 
   {% if pageCss %}
-  <link rel="stylesheet" href="{{ pageCss }}" />
+  <link rel="stylesheet" href="{{ pageCss | url }}" />
   {% endif %}
 </head>
 <body>
@@ -25,19 +25,19 @@
   <!-- ── Navigation ─────────────────────────────── -->
   <nav id="navbar">
     <div class="nav-inner">
-      <a class="nav-logo" href="/">
-        <img src="/css/logo-colour-horizontal.png" alt="Westmoreland Biodiversity logo" />
+      <a class="nav-logo" href="{{ '/' | url }}">
+        <img src="{{ '/css/logo-colour-horizontal.png' | url }}" alt="Westmoreland Biodiversity logo" />
       </a>
       <button class="nav-toggle" id="navToggle" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="navLinks">
-        <li><a href="/">Home</a></li>
-        <li><a href="/landowners/">Landowners</a></li>
+        <li><a href="{{ '/' | url }}">Home</a></li>
+        <li><a href="{{ '/landowners/' | url }}">Landowners</a></li>
         <li><a href="/#developers">Developers</a></li>
         <li><a href="/#about">How It Works</a></li>
         <li><a href="/#faq">FAQs</a></li>
-        <li><a href="/land-estimator/" class="nav-cta" style="background:var(--gold);border-color:var(--gold);">Estimate My Land</a></li>
+        <li><a href="{{ '/land-estimator/' | url }}" class="nav-cta" style="background:var(--gold);border-color:var(--gold);">Estimate My Land</a></li>
         <li><a href="/#contact" class="nav-cta">Get in Touch</a></li>
       </ul>
     </div>
@@ -50,7 +50,7 @@
   {% endfor %}
 
   {% if pageJs %}
-  <script src="{{ pageJs }}"></script>
+  <script src="{{ pageJs | url }}"></script>
   {% endif %}
 
 </body>

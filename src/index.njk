@@ -3,6 +3,7 @@ layout: layouts/base.njk
 title: "Westmoreland Biodiversity — Nutrient Neutrality & BNG Credit Brokers"
 pageCss: /css/home.css
 pageJs: /js/home.js
+permalink: /
 ---
 
   <!-- ── Hero ───────────────────────────────────── -->
@@ -13,8 +14,8 @@ pageJs: /js/home.js
         <h1>Your land.<br /><em>Valued differently.</em></h1>
         <p>Westmoreland Biodiversity connects landowners with developers through regulated environmental credit markets — creating sustainable income streams while helping nature recover.</p>
         <div class="hero-ctas">
-          <a href="/land-estimator/" class="btn btn-gold">Estimate My Land →</a>
-          <a href="/landowners/" class="btn btn-outline-light">I Own Land</a>
+          <a href="{{ '/land-estimator/' | url }}" class="btn btn-gold">Estimate My Land →</a>
+          <a href="{{ '/landowners/' | url }}" class="btn btn-outline-light">I Own Land</a>
           <a href="#developers" class="btn btn-outline-light">I'm a Developer</a>
         </div>
         <div class="hero-badge">
@@ -115,7 +116,7 @@ pageJs: /js/home.js
             <li>We handle all negotiations and paperwork on your behalf</li>
             <li>No upfront costs — we earn when you earn</li>
           </ul>
-          <a href="/landowners/" class="btn btn-gold">Explore the landowner page</a>
+          <a href="{{ '/landowners/' | url }}" class="btn btn-gold">Explore the landowner page</a>
         </div>
         <div class="audience-panel audience-panel--dev" data-label="HOW">
           <p class="eyebrow">How it works for landowners</p>
