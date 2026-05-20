@@ -33,7 +33,7 @@ jobs:
         shell: bash
         run: |
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-          dotnet build Backend/WEB.Backend.slnx --configuration Release --output ./output
+          dotnet build Backend/WB.Backend.slnx --configuration Release --output ./output
           popd
       
       - name: Login to Azure
