@@ -2,16 +2,19 @@
 using System.Text.RegularExpressions;
 using Backend.Models;
 using Backend.Services;
+using HtmlAgilityPack;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using OpenAI.Chat;
 
 namespace Backend.Endpoints;
 
-public class EstimateEndpoint(ILogger<EstimateEndpoint> logger, ChatClient chatClient, BlobStorageService blobStorageService, NotificationService notificationService)
+public class EstimateEndpoint(IConfiguration configuration, ILogger<EstimateEndpoint> logger, ChatClient chatClient, BlobStorageService blobStorageService, NotificationService notificationService)
 {
+    private static readonly HttpClient HttpClient = new();
     private static BinaryData? JsonSchema { get; set; }
 
     [Function("Estimate")]
@@ -38,6 +41,16 @@ public class EstimateEndpoint(ILogger<EstimateEndpoint> logger, ChatClient chatC
         if (cachedEstimate != null)
         {
             logger.LogInformation("Returning cached estimate");
+            
+            // Send notification email
+            try
+            {
+                await notificationService.NotifyEstimate(estimateRequest, cachedEstimate);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Failed to send notification email for estimate request");
+            }
             return new OkObjectResult(cachedEstimate);
         }
 
@@ -96,9 +109,10 @@ public class EstimateEndpoint(ILogger<EstimateEndpoint> logger, ChatClient chatC
                 }
             }
             
-            // https://www.gov.uk/guidance/statutory-biodiversity-credit-prices
-            // https://www.gov.uk/guidance/biodiversity-metric-calculate-the-biodiversity-net-gain-of-a-project-or-development
+            var guidanceUrls = configuration["GUIDANCE_URLS"]!.Split(';').Select(u => u.Trim()).ToArray();
 
+            var guidance = await Task.WhenAll(guidanceUrls.Select(FetchGuidance));
+            
             List<ChatMessage> messages =
             [
                 new SystemChatMessage(
@@ -148,8 +162,13 @@ Satellite Image: [Attached]
 Terrain Image: [Attached]
 User Notes: [e.g., Currently used for sheep grazing, contains a small stream]
 """),
-                new UserChatMessage(userMessageContent)
+                new UserChatMessage(userMessageContent),
             ];
+
+            foreach (var guidanceText in guidance)
+            {
+                messages.Add("Take the following guidance into consideration when generating the estimates:\n" + guidanceText);
+            }
 
             JsonSchema ??= BinaryData.FromString(NJsonSchema.JsonSchema.FromType<EstimateResponse>().ToJson());
 
@@ -250,5 +269,17 @@ User Notes: [e.g., Currently used for sheep grazing, contains a small stream]
             return "Enquiry.Postcode is required.";
 
         return null; // Validation passed
+    }
+    
+    private async Task<string> FetchGuidance(string url)
+    {
+        var response = await HttpClient.GetAsync(url);
+        var html = await response.Content.ReadAsStringAsync();
+    
+        var doc = new HtmlDocument();
+        doc.LoadHtml(html);
+        var govspeak = doc.DocumentNode.SelectSingleNode("//*[@id='contents']")?.InnerText;
+    
+        return govspeak ?? string.Empty;
     }
 }

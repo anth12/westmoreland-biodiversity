@@ -902,19 +902,19 @@ document.addEventListener('DOMContentLoaded', function() {
       const responseData = await response.json();
       progressDiv.classList.remove('show');
       successDiv.classList.add('show');
-      iconEl.textContent = '📈';
-      resultTitle.textContent = 'Estimate received';
-      resultMsg.textContent = 'Your estimate data has been returned successfully.';
-      retryBtn.style.display = 'none';
-      resultDetails.innerHTML = renderEstimateResponse(responseData, errors);
+      if (iconEl) iconEl.textContent = '📈';
+      if (resultTitle) resultTitle.textContent = 'Estimate received';
+      if (resultMsg) resultMsg.textContent = 'Your estimate data has been returned successfully.';
+      if (retryBtn) retryBtn.style.display = 'none';
+      if (resultDetails) resultDetails.innerHTML = renderEstimateResponse(responseData, errors);
     } catch (err) {
       progressDiv.classList.remove('show');
       successDiv.classList.add('show');
-      iconEl.textContent = '⚠️';
-      resultTitle.textContent = 'Estimate failed';
-      resultMsg.textContent = 'We could not complete the estimate. Please retry when your connection is restored.';
-      retryBtn.style.display = 'inline-flex';
-      resultDetails.innerHTML = `<div class="modal-error-message">${escapeHtml(err.message || 'An unknown error occurred.')}</div>`;
+      if (iconEl) iconEl.textContent = '⚠️';
+      if (resultTitle) resultTitle.textContent = 'Estimate failed';
+      if (resultMsg) resultMsg.textContent = 'We could not complete the estimate. Please retry when your connection is restored.';
+      if (retryBtn) retryBtn.style.display = 'inline-flex';
+      if (resultDetails) resultDetails.innerHTML = `<div class="modal-error-message">${escapeHtml(err.message || 'An unknown error occurred.')}</div>`;
       throw err;
     }
   }

@@ -1,13 +1,13 @@
 ﻿using Backend.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System.Net.Http.Json;
+using Mailjet.Client;
+using Mailjet.Client.TransactionalEmails;
 
 namespace Backend.Services;
 
-public class NotificationService(IConfiguration configuration, ILogger<NotificationService> logger, HttpClient httpClient)
+public class NotificationService(IConfiguration configuration, ILogger<NotificationService> logger)
 {
-    private const string MailJetApiUrl = "https://api.mailjet.com/v3.1/send";
 
     public async Task NotifyEnquiry(EnquiryRequest enquiry)
     {
@@ -123,6 +123,7 @@ public class NotificationService(IConfiguration configuration, ILogger<Notificat
     {
         var mailjetKey = configuration["MAILJET_APIKEY"];
         var recipientEmails = configuration["NOTIFICATION_RECIPIENTS"];
+        var fromEmail = configuration["NOTIFICATION_SENDER"];
         
         if (string.IsNullOrEmpty(mailjetKey))
         {
@@ -132,40 +133,24 @@ public class NotificationService(IConfiguration configuration, ILogger<Notificat
         
         try
         {
-            var fromEmail = configuration["NOTIFICATION_SENDER"];
-            
-            var payload = new
-            {
-                Messages = new[]
-                {
-                    new
-                    {
-                        From = new { Email = fromEmail, Name = "Land Estimator" },
-                        To = recipientEmails.Split(';').Select( e=>  new { Email = e.Trim() }),
-                        Subject = subject,
-                        HTMLPart = htmlContent
-                    }
-                }
-            };
+            MailjetClient client = new MailjetClient(
+                Environment.GetEnvironmentVariable("MAILJET_APIKEY"), 
+                Environment.GetEnvironmentVariable("MAILJET_SECRET"));
 
-            var request = new HttpRequestMessage(HttpMethod.Post, MailJetApiUrl)
-            {
-                Content = JsonContent.Create(payload)
-            };
+            // construct your email with builder
+            var email = new TransactionalEmailBuilder()
+                .WithFrom(new SendContact(fromEmail))
+                .WithSubject(subject)
+                .WithHtmlPart(htmlContent)
+                .WithTo(recipientEmails!.Split(';').Select( e=> new SendContact(e.Trim())))
+                .Build();
 
-            var credentials = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes($"{mailjetKey}:"));
-            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", credentials);
+            // invoke API to send email
+            var response = await client.SendTransactionalEmailAsync(email);
 
-            var response = await httpClient.SendAsync(request);
-
-            if (response.IsSuccessStatusCode)
+            foreach (var responseMessage in response.Messages)
             {
-                logger.LogInformation("Email sent successfully to {Email}", recipientEmails);
-            }
-            else
-            {
-                var errorContent = await response.Content.ReadAsStringAsync();
-                logger.LogError("Failed to send email to {Email}: {StatusCode} - {Error}", recipientEmails, response.StatusCode, errorContent);
+                logger.LogInformation("Email sent status {Status} {@Errors}", responseMessage.Status, responseMessage.Errors);
             }
         }
         catch (Exception ex)
