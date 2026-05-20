@@ -717,7 +717,7 @@
 /* ── Responsive ──────────────────────────────– */
 @media (max-width: 1024px) {
   .form-panel {
-    width: 340px;
+    width: 95%px;
   }
 
   .inline-map {
