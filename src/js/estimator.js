@@ -10,6 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
     (function () {
       'use strict';
 
+      /* ── API Configuration ──────────────────────────────– */
+      const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+      const API_BASE_URL = isProduction 
+        ? 'https://westmorelandbiodiversity.azurewebsites.net'
+        : 'http://localhost:7058';
+
       /* ── Variables and state ────────────────────────────── */
       const form = document.getElementById('estimatorForm');
       const submitBtn = document.getElementById('submitBtn');
@@ -887,7 +893,7 @@ document.addEventListener('DOMContentLoaded', function() {
     labelEl.textContent = 'Sending estimate…';
 
     try {
-      const response = await fetch('http://localhost:7058/api/Estimate', {
+      const response = await fetch(`${API_BASE_URL}/api/Estimate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
