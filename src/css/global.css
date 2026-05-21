@@ -105,6 +105,7 @@ a {
   transition: all 0.2s;
   border: 2px solid transparent;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .btn-primary {
